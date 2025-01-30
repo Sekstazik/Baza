@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог клиентов</title>
+    <style>
+        body {
+            background-image: url(./img/shesterenki-111.jpg);
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1b136f;
+            backdrop-filter: blur(10px)
+        }
+
+        /* Контейнер с максимальной шириной */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            /* Выравнивание по центру */
+            padding: 20px;
+            background-image: url(./img/shesterenki-111.jpg);
+        }
+
+        /* Логотип */
+        .logo {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo img {
+            width: 500px;
+            height: auto;
+        }
+
+        /* Информация о клиенте */
+        .client-info {
+            margin-right: auto;
+            margin-left: auto;
+            width: 500px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            height: 600px;
+            /* Фиксированная высота */
+            overflow-y: auto;
+            /* Прокрутка при переполнении */
+        }
+
+        h1 {
+            text-align: center;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin: 10px 0;
+        }
+
+        .buttons {
+            text-align: center
+        }
+
+        .btn-next,
+        .btn-prev {
+            display: inline-block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            text-align: center;
+            background-color: #007bff;
+            color: white;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-next:hover,
+        .btn-prev:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-next.hidden {
+            display: none;
+        }
+
+        /* Стиль для номера телефона */
+        .phone-number {
+            color: #007bff;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .phone-number:hover {
+            text-decoration: underline;
+        }
+
+        .fire-img {
+            transform: scale(-1, 1);
+            margin-top: 410px;
+            width: 350px;
+            top: 10px;
+            position: absolute;
+            z-index: 1;
+        }
+
+        .zhucka-img {
+            margin-left: 800px;
+            margin-top: 627px;
+            width: 150px;
+            top: 10px;
+            position: absolute;
+            z-index: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Логотип -->
+        <div class="logo">
+            <img src="./img/Без_имени-12323-removebg-preview.png" alt="Logo">
+        </div>
+
+        <!-- Информация о клиенте -->
+        <div class="client-info">
+            <p><strong>ФИО:</strong> <span id="last_name"></span> <span id="first_name"></span> <span
+                    id="middle_name"></span></p>
+            <p><strong>Дата рождения:</strong> <span id="birth_date"></span></p>
+            <p><strong>Телефон:</strong> <span id="phone" class="phone-number"></span></p>
+            <p><strong>Электронная почта:</strong> <span id="email"></span></p>
+            <p><strong>Роль:</strong> <span id="role"></span></p>
+            <p><strong>Страна:</strong> <span id="country"></span></p>
+            <p><strong>Регион:</strong> <span id="region"></span></p>
+            <p><strong>Школа:</strong> <span id="school"></span></p>
+            <p><strong>Адрес:</strong> <span id="address"></span></p>
+            <p><strong>Оператор:</strong> <span id="operator"></span></p>
+            <p><strong>Местоположение:</strong> <span id="location"></span></p>
+            <p><strong>Часовой пояс:</strong> <span id="timezone"></span></p>
+            <p><strong>Баллы:</strong> <span id="score"></span></p>
+
+        </div>
+        <div>
+            <div>
+                <div>
+                    <img class="fire-img" src="./img/394e6155f190fbf2ee083cfa6fbc7920.630x820.jpg" alt="">
+                </div>
+
+                <div>
+                    <img class="zhucka-img" src="./img/3F3F3F_2D.jpg" alt="">
+                </div>
+                <!-- Кнопки для навигации -->
+                <div class="buttons">
+                    <button class="btn-prev" id="prevButton">Предыдущий клиент</button>
+                    <button class="btn-next" id="nextButton">Следующий клиент</button>
+                </div>
+            </div>
+
+            <script>
+                // Массив клиентов
+                const clients = [
+                    {
+                        "phone": "79046038387",
+                        "last_name": "Абдуллаев",
+                        "first_name": "Гусейн",
+                        "middle_name": "Алимов",
+                        "birth_date": "07.07.2010",
+                        "email": "ismailovaturana239@gmail.com",
+                        "role": "ученик",
+                        "country": "российская федерация",
+                        "region": "ленинградская область",
+                        "school": "муниципальное общеобразовательное бюджетное учреждение 'сертоловская средняя общеобразовательная школа № 1'",
+                        "address": "188650, ленинградская область, всеволожский район, Г. сертолово, ул. школьная, д. 1/2",
+                        "operator": "Теле2",
+                        "location": "Санкт-Петербург Ленинградская область",
+                        "timezone": "GMT+3",
+                        "score": 0.240944792
+                    },
+                    {
+                        "phone": "79119604039",
+                        "last_name": "Абдуллаева",
+                        "first_name": "Ангелина",
+                        "middle_name": "Гарибагаевна",
+                        "birth_date": "14.06.2008",
+                        "email": "abdullaevaangelina0@gmail.com",
+                        "role": "ученик",
+                        "country": "российская федерация",
+                        "region": "Санкт-петербург",
+                        "school": "государственное бюджетное общеобразовательное учреждение средняя общеобразовательная школа № 523 колпинского района санкт-петербурга",
+                        "address": "196650, санкт-петербург, Г.колпино, пр. ленина, дом 31, литер а",
+                        "operator": "МТС",
+                        "location": "Санкт-Петербург Ленинградская область",
+                        "timezone": "GMT+3",
+                        "score": 0.978737838
+                    },
+                    {
+                        "phone": "79697325776",
+                        "last_name": "Аскерова",
+                        "first_name": "Юлдуз",
+                        "middle_name": "Махмудовна",
+                        "birth_date": "31.10.2008",
+                        "email": "askerovaulduz678@gmail.com",
+                        "role": "ученик",
+                        "country": "российская федерация",
+                        "region": "Санкт-петербург",
+                        "school": "государственное бюджетноеобщеобразовательноеучреждение средняяобщеобразовательная школа №476 колпинского района санкт-петербурга",
+                        "address": "196650, Город санкт-петербург, Город колпино, улица танкистов, дом 26, литер а",
+                        "operator": "Билайн",
+                        "location": "Санкт-Петербург Ленинградская область",
+                        "timezone": "GMT+3",
+                        "score": 0.347433808
+                    },
+                    {
+                        "phone": "79602664304",
+                        "last_name": "Багирова",
+                        "first_name": "Айсель",
+                        "middle_name": "Айдыновна",
+                        "birth_date": "15.04.2010",
+                        "email": "bagirovaajsel14@gmail.com",
+                        "role": "ученик",
+                        "country": "российская федерация",
+                        "region": "республика дагестан",
+                        "school": "муниципальное бюджетное общеобразовательное учреждение 'дербентская гимназия №3'",
+                        "address": "рд, Г.дербент, ул.орта-капы, 11б",
+                        "operator": "Билайн",
+                        "location": "Санкт-Петербург Ленинградская область",
+                        "timezone": "GMT+3",
+                        "score": 0.057281929
+                    }
+                ];
+
+                // Считываем сохраненный индекс или начинаем с первого клиента
+                let currentIndex = localStorage.getItem('currentIndex');
+                if (currentIndex === null) {
+                    currentIndex = 0;
+                } else {
+                    currentIndex = parseInt(currentIndex);
+                }
+
+                // Функция для отображения информации о клиенте
+                function showClient(index) {
+                    const client = clients[index];
+                    document.getElementById('last_name').textContent = client.last_name;
+                    document.getElementById('first_name').textContent = client.first_name;
+                    document.getElementById('middle_name').textContent = client.middle_name;
+                    document.getElementById('birth_date').textContent = client.birth_date;
+                    document.getElementById('phone').textContent = client.phone;
+                    document.getElementById('email').textContent = client.email;
+                    document.getElementById('role').textContent = client.role;
+                    document.getElementById('country').textContent = client.country;
+                    document.getElementById('region').textContent = client.region;
+                    document.getElementById('school').textContent = client.school;
+                    document.getElementById('address').textContent = client.address;
+                    document.getElementById('operator').textContent = client.operator;
+                    document.getElementById('location').textContent = client.location;
+                    document.getElementById('timezone').textContent = client.timezone;
+                    document.getElementById('score').textContent = client.score;
+                }
+
+                // Функция для копирования номера телефона
+                function copyPhoneNumber() {
+                    const phoneNumber = document.getElementById('phone').textContent;
+                    if (navigator.clipboard) {
+                        navigator.clipboard.writeText(phoneNumber).then(function () {
+                            alert('Номер телефона скопирован в буфер обмена');
+                        }).catch(function (err) {
+                            console.error('Ошибка при копировании:', err);
+                        });
+                    } else {
+                        const textarea = document.createElement('textarea');
+                        textarea.value = phoneNumber;
+                        document.body.appendChild(textarea);
+                        textarea.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(textarea);
+                        alert('Номер телефона скопирован в буфер обмена');
+                    }
+                }
+
+                // Показываем первого клиента
+                showClient(currentIndex);
+
+                // Обработчик клика по номеру телефона
+                document.getElementById('phone').addEventListener('click', copyPhoneNumber);
+
+                // Функция обновления видимости кнопок
+                function updateButtons() {
+                    document.getElementById('prevButton').style.display = currentIndex === 0 ? 'none' : 'inline-block';
+                    document.getElementById('nextButton').style.display = currentIndex === clients.length - 1 ? 'none' : 'inline-block';
+                }
+
+                // Переход к следующему клиенту
+                function nextClient() {
+                    if (currentIndex < clients.length - 1) {
+                        currentIndex++;
+                        localStorage.setItem('currentIndex', currentIndex);
+                        showClient(currentIndex);
+                        updateButtons();
+                    }
+                }
+
+                // Переход к предыдущему клиенту
+                function prevClient() {
+                    if (currentIndex > 0) {
+                        currentIndex--;
+                        localStorage.setItem('currentIndex', currentIndex);
+                        showClient(currentIndex);
+                        updateButtons();
+                    }
+                }
+
+                // Инициализация
+                updateButtons();
+
+                // Обработчики кнопок
+                document.getElementById('nextButton').addEventListener('click', nextClient);
+                document.getElementById('prevButton').addEventListener('click', prevClient);
+            </script>
+</body>
+
+</html>
