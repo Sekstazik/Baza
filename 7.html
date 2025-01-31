@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог клиентов</title>
+    <style>
+        body {
+            background-image: url(./img/shesterenki-111.jpg);
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1b136f;
+            backdrop-filter: blur(10px)
+        }
+
+        /* Контейнер с максимальной шириной */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            /* Выравнивание по центру */
+            padding: 20px;
+            background-image: url(./img/shesterenki-111.jpg);
+        }
+
+        /* Логотип */
+        .logo {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo img {
+            width: 500px;
+            height: auto;
+        }
+
+        /* Информация о клиенте */
+        .client-info {
+            margin-right: auto;
+            margin-left: auto;
+            width: 500px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            height: 600px;
+            /* Фиксированная высота */
+            overflow-y: auto;
+            /* Прокрутка при переполнении */
+        }
+
+        h1 {
+            text-align: center;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin: 10px 0;
+        }
+
+        .buttons {
+            text-align: center
+        }
+
+        .btn-next,
+        .btn-prev {
+            display: inline-block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            text-align: center;
+            background-color: #007bff;
+            color: white;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-next:hover,
+        .btn-prev:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-next.hidden {
+            display: none;
+        }
+
+        /* Стиль для номера телефона */
+        .phone-number {
+            color: #007bff;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .phone-number:hover {
+            text-decoration: underline;
+        }
+
+        .fire-img {
+            transform: scale(-1, 1);
+            margin-top: 410px;
+            width: 350px;
+            top: 10px;
+            position: absolute;
+            z-index: 1;
+        }
+
+        .zhucka-img {
+            margin-left: 800px;
+            margin-top: 627px;
+            width: 150px;
+            top: 10px;
+            position: absolute;
+            z-index: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Логотип -->
+        <div class="logo">
+            <img src="./img/Без_имени-12323-removebg-preview.png" alt="Logo">
+        </div>
+
+        <!-- Информация о клиенте -->
+        <div class="client-info">
+            <p><strong>ФИО:</strong> <span id="last_name"></span> <span id="first_name"></span> <span
+                    id="middle_name"></span></p>
+            <p><strong>Дата рождения:</strong> <span id="birth_date"></span></p>
+            <p><strong>Телефон:</strong> <span id="phone" class="phone-number"></span></p>
+            <p><strong>Снилс:</strong> <span id="snils" class="phone-number"></span></p>
+            <p><strong>Электронная почта:</strong> <span id="email"></span></p>
+            <p><strong>Роль:</strong> <span id="role"></span></p>
+            <p><strong>Страна:</strong> <span id="country"></span></p>
+            <p><strong>Регион:</strong> <span id="region"></span></p>
+            <p><strong>Школа:</strong> <span id="school"></span></p>
+            <p><strong>Адрес:</strong> <span id="address"></span></p>
+            <p><strong>Оператор:</strong> <span id="operator"></span></p>
+            <p><strong>Местоположение:</strong> <span id="location"></span></p>
+            <p><strong>Часовой пояс:</strong> <span id="timezone"></span></p>
+            <p><strong>Баллы:</strong> <span id="score"></span></p>
+
+        </div>
+        <div>
+            <div>
+                <div>
+                    <img class="fire-img" src="./img/394e6155f190fbf2ee083cfa6fbc7920.630x820.jpg" alt="">
+                </div>
+
+                <div>
+                    <img class="zhucka-img" src="./img/3F3F3F_2D.jpg" alt="">
+                </div>
+                <!-- Кнопки для навигации -->
+                <div class="buttons">
+                    <button class="btn-prev" id="prevButton">Предыдущий клиент</button>
+                    <button class="btn-next" id="nextButton">Следующий клиент</button>
+                </div>
+            </div>
+
+            <script>
+                // Массив клиентов
+                const clients = [
+                    {
+                        "phone": "79252005403",
+                        "last_name": "Абраменков",
+                        "first_name": "Егор",
+                        "middle_name": "Михайлович",
+                        "birth_date": "08.06.2009",
+                        "snils": "17763924518",
+                        "address": "г. Москва, проезд Шокальского, д. 29, к. 2, кв. 175",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79035236054",
+                        "last_name": "Адамов",
+                        "first_name": "Роман",
+                        "middle_name": "Сергеевич",
+                        "birth_date": "05.12.2010",
+                        "snils": "16588242709",
+                        "address": "г. Москва, улица Зои и Александра Космодемьянских, д. 29, кв. 275",
+                        "email": "tchekordova@mail.ru"
+                    },
+                    {
+                        "phone": "79858107728",
+                        "last_name": "Айзатуллин",
+                        "first_name": "Артём",
+                        "middle_name": "Евгеньевич",
+                        "birth_date": "20.09.2011",
+                        "snils": "19851791431",
+                        "address": "г. Москва, Вересковая улица, д. 13, кв. 3",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79296795755",
+                        "last_name": "Алексеев",
+                        "first_name": "Максим",
+                        "middle_name": "Евгеньевич",
+                        "birth_date": "23.03.2011",
+                        "snils": "20125269611",
+                        "address": "г. Москва, 3-я Радиаторская улица, д. 9, кв. 40",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79036683896",
+                        "last_name": "Алешковская",
+                        "first_name": "Милана",
+                        "middle_name": "Александровна",
+                        "birth_date": "05.06.2009",
+                        "snils": "17664608506",
+                        "address": "г. Москва, Каргопольская улица, д. 14, к. 1, кв. 107",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79256585850",
+                        "last_name": "Анарбаев",
+                        "first_name": "Нурсейит",
+                        "middle_name": "Кадырбекович",
+                        "birth_date": "26.12.2011",
+                        "snils": "17344228160",
+                        "address": "г. Москва, Шмитовский проезд, д. 35, кв. 3",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79263200812",
+                        "last_name": "Антишин",
+                        "first_name": "Ярослав",
+                        "middle_name": "Андреевич",
+                        "birth_date": "03.12.2010",
+                        "snils": "17592353400",
+                        "address": "г. Москва, Митинская улица, д. 47, к. 2, кв. 32",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79852775998",
+                        "last_name": "Анфимов",
+                        "first_name": "Андрей",
+                        "middle_name": "Александрович",
+                        "birth_date": "17.07.2012",
+                        "snils": "17443094672",
+                        "address": "г. Москва, Свободный проспект, д. 19, кв. 17",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79652776084",
+                        "last_name": "Атаян",
+                        "first_name": "Милена",
+                        "middle_name": "Эриковна",
+                        "birth_date": "26.01.2013",
+                        "snils": "19227978114",
+                        "address": "г. Москва, внутригородская территория поселение Десеновское, 3-я Нововатутинская улица, д. 13, к. 1А, кв. 165",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79250701714",
+                        "last_name": "Бабушкин",
+                        "first_name": "Алексей",
+                        "middle_name": "Андреевич",
+                        "birth_date": "24.04.2011",
+                        "snils": "18837022798",
+                        "address": "г. Москва, Лукинская улица, д. 8, кв. 239",
+                        "email": "belka92letyaga@gmail.com"
+                    },
+                    {
+                        "phone": "79998590170",
+                        "last_name": "Баронин",
+                        "first_name": "Лев",
+                        "middle_name": "Антонович",
+                        "birth_date": "29.02.2012",
+                        "snils": "18328641992",
+                        "address": "г. Москва, Игральная улица, д. 4, кв. 21",
+                        "email": "guzel.baronina@mail.ru"
+                    },
+                    {
+                        "phone": "79160702447",
+                        "last_name": "Басалаева",
+                        "first_name": "Анастасия",
+                        "middle_name": "Павловна",
+                        "birth_date": "14.05.2009",
+                        "snils": "18678949162",
+                        "address": "г. Москва, Кленовый бульвар, д. 13, к. 1, кв. 292",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79255386231",
+                        "last_name": "Басангова",
+                        "first_name": "Эвелина",
+                        "middle_name": "Анатольевна",
+                        "birth_date": "14.08.2009",
+                        "snils": "15589616418",
+                        "address": "г. Москва, проезд Карамзина, д. 1, к. 3, кв. 170",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79020934877",
+                        "last_name": "Белоусова",
+                        "first_name": "Валерия",
+                        "middle_name": "Ивановна",
+                        "birth_date": "10.11.2011",
+                        "snils": "16936885537",
+                        "address": "г. Москва, улица Генерала Тюленева, д. 33, кв. 11",
+                        "email": "guninanatali1977@gmail.com"
+                    },
+                    {
+                        "phone": "79067155341",
+                        "last_name": "Благосклонова",
+                        "first_name": "Виктория",
+                        "middle_name": "Ивановна",
+                        "birth_date": "18.08.2009",
+                        "snils": "15725044660",
+                        "address": "г. Москва, улица Егора Абакумова, д. 4, кв. 68",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79271404408",
+                        "last_name": "Быкова",
+                        "first_name": "Полина",
+                        "middle_name": "Максимовна",
+                        "birth_date": "14.06.2012",
+                        "snils": "20145621409",
+                        "address": "г. Москва, улица Искры, д. 9, кв. 55",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79154987743",
+                        "last_name": "Вавилин",
+                        "first_name": "Никита",
+                        "middle_name": "Сергеевич",
+                        "birth_date": "14.06.2012",
+                        "snils": "18897743971",
+                        "address": "г. Москва, Ангарская улица, д. 18, кв. 42",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79205707889",
+                        "last_name": "Голосов",
+                        "first_name": "Егор",
+                        "middle_name": "Владимирович",
+                        "birth_date": "04.05.2010",
+                        "snils": "15996924953",
+                        "address": "г. Москва, город Щербинка, улица Индустриальная, д. 16, кв. 107",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79265283403",
+                        "last_name": "Голышина",
+                        "first_name": "Юлия",
+                        "middle_name": "Алексеевна",
+                        "birth_date": "31.03.2012",
+                        "snils": "18686994870",
+                        "address": "г. Москва, набережная Новикова-Прибоя, д. 7, к. 2, кв. 20",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79269089725",
+                        "last_name": "Горьков",
+                        "first_name": "Константин",
+                        "middle_name": "Александрович",
+                        "birth_date": "12.10.2011",
+                        "snils": "17681063285",
+                        "address": "г. Москва, Кустанайская улица, д. 6, к. 2, кв. 73",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79151502039",
+                        "last_name": "Гудкова",
+                        "first_name": "Александра",
+                        "middle_name": "Васильевна",
+                        "birth_date": "21.07.2009",
+                        "snils": "16900670367",
+                        "address": "г. Москва, улица Двинцев, д. 8, кв. 36",
+                        "email": "18.marusia@mail.ru"
+                    },
+                    {
+                        "phone": "79253692233",
+                        "last_name": "Денисов",
+                        "first_name": "Даниил",
+                        "middle_name": "Игоревич",
+                        "birth_date": "15.08.2010",
+                        "snils": "18680918925",
+                        "address": "г. Москва, Домодедовская улица, д. 1, к. 1, кв. 119",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79254544320",
+                        "last_name": "Дмитриева",
+                        "first_name": "Таисия",
+                        "middle_name": "Александровна",
+                        "birth_date": "06.09.2012",
+                        "snils": "17675679843",
+                        "address": "г. Москва, Южнобутовская улица, д. 80, кв. 102",
+                        "email": "nataliyaputra@yandex.ru"
+                    },
+                    {
+                        "phone": "79262919958",
+                        "last_name": "Должанская",
+                        "first_name": "Диана",
+                        "middle_name": "Сергеевна",
+                        "birth_date": "28.10.2010",
+                        "snils": "18501794479",
+                        "address": "г. Москва, город Зеленоград, д. 841, кв. 4",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79165218944",
+                        "last_name": "Елисеева",
+                        "first_name": "Алиса",
+                        "middle_name": "Андреевна",
+                        "birth_date": "12.02.2010",
+                        "snils": "18691287220",
+                        "address": "г. Москва, Коптевская улица, д. 89/10, кв. 51",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79163885882",
+                        "last_name": "Жиров",
+                        "first_name": "Александр",
+                        "middle_name": "Евгеньевич",
+                        "birth_date": "23.10.2011",
+                        "snils": "18081625267",
+                        "address": "г. Москва, улица Крылатские Холмы, д. 47, кв. 48",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79268516909",
+                        "last_name": "Жоголев",
+                        "first_name": "Никита",
+                        "middle_name": "Юрьевич",
+                        "birth_date": "11.02.2009",
+                        "snils": "17516795000",
+                        "address": "г. Москва, Мичуринский проспект, д. 72, к. 1, кв. 12",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79032942024",
+                        "last_name": "Загребанцев",
+                        "first_name": "Никита",
+                        "middle_name": "Яковлевич",
+                        "birth_date": "28.01.2013",
+                        "snils": "19200479958",
+                        "address": "г. Москва, улица Академика Комарова, д. 16, кв. 16",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79683855579",
+                        "last_name": "Зверева",
+                        "first_name": "Вероника",
+                        "middle_name": "Вячеславовна",
+                        "birth_date": "24.04.2012",
+                        "snils": "17586630413",
+                        "address": "г. Москва, Бирюлевская улица, д. 44/6, кв. 126",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79030167394",
+                        "last_name": "Исаев",
+                        "first_name": "Андрей",
+                        "middle_name": "Максимович",
+                        "birth_date": "11.12.2009",
+                        "snils": "18967418646",
+                        "address": "г. Москва, 2-я Мелитопольская улица, д. 7, к. 1, кв. 47",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79067512714",
+                        "last_name": "Исаев",
+                        "first_name": "Никита",
+                        "middle_name": "Сергеевич",
+                        "birth_date": "28.08.2009",
+                        "snils": "19172290074",
+                        "address": "г. Москва, Пятницкое шоссе, д. 7, кв. 312",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79035770411",
+                        "last_name": "Калиничева",
+                        "first_name": "Мария",
+                        "middle_name": "Сергеевна",
+                        "birth_date": "14.05.2009",
+                        "snils": "18448635511",
+                        "address": "г. Москва, Лухмановская улица, д. 30, кв. 173",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79036716787",
+                        "last_name": "Каплун",
+                        "first_name": "Екатерина",
+                        "middle_name": "Ильинична",
+                        "birth_date": "16.01.2013",
+                        "snils": "18208428872",
+                        "address": "г. Москва, Большая Декабрьская улица, д. 1, кв. 24",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79637818700",
+                        "last_name": "Капыш",
+                        "first_name": "Меланья",
+                        "middle_name": "Ивановна",
+                        "birth_date": "11.09.2009",
+                        "snils": "19115936176",
+                        "address": "г. Москва, Ленинградский проспект, д. 76, к. 4, кв. 156",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79032355802",
+                        "last_name": "Кескинов",
+                        "first_name": "Тимофей",
+                        "middle_name": "Антонович",
+                        "birth_date": "28.12.2011",
+                        "snils": "19402424654",
+                        "address": "г. Москва, Малая Пироговская улица, д. 8, кв. 84",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79296638545",
+                        "last_name": "Кормушкина",
+                        "first_name": "Анастасия",
+                        "middle_name": "Сергеевна",
+                        "birth_date": "07.02.2012",
+                        "snils": "18429238090",
+                        "address": "г. Москва, Средняя Первомайская улица, д. 44, кв. 2 Мс",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79037257996",
+                        "last_name": "Кружков",
+                        "first_name": "Станимир",
+                        "middle_name": "Тихонович",
+                        "birth_date": "22.02.2011",
+                        "snils": "17430484563",
+                        "address": "г. Москва, Ялтинская улица, д. 10, к. 1, кв. 121",
+                        "email": "leta28@yandex.ru"
+                    },
+                    {
+                        "phone": "79779568279",
+                        "last_name": "Кузнецов",
+                        "first_name": "Марк",
+                        "middle_name": "Викторович",
+                        "birth_date": "11.10.2011",
+                        "snils": "18863764941",
+                        "address": "г. Москва, улица Дыбенко, д. 22, к. 1, кв. 64",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79663061717",
+                        "last_name": "Кузовков",
+                        "first_name": "Богдан",
+                        "middle_name": "Иванович",
+                        "birth_date": "25.09.2011",
+                        "snils": "19459794853",
+                        "address": "г. Москва, Малая Набережная улица, д. 13, кв. 95",
+                        "email": "kuzovkova81@yandex.ru"
+                    },
+                    {
+                        "phone": "79166650123",
+                        "last_name": "Ладанова",
+                        "first_name": "Анна",
+                        "middle_name": "Ивановна",
+                        "birth_date": "02.10.2010",
+                        "snils": "18058602575",
+                        "address": "г. Москва, Старокачаловская улица, д. 3, к. 1, кв. 66",
+                        "email": "ladanov1@gmail.com"
+                    },
+                    {
+                        "phone": "79169696190",
+                        "last_name": "Лаптев",
+                        "first_name": "Сергей",
+                        "middle_name": "Александрович",
+                        "birth_date": "27.03.2009",
+                        "snils": "19546451607",
+                        "address": "г. Москва, Окская улица, д. 3, к. 2, кв. 136",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79653272733",
+                        "last_name": "Ларионов",
+                        "first_name": "Иван",
+                        "middle_name": "Сергеевич",
+                        "birth_date": "07.10.2010",
+                        "snils": "19638942940",
+                        "address": "г. Москва, Ангарская улица, д. 23, к. 5, кв. 37",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79263470210",
+                        "last_name": "Лисицина",
+                        "first_name": "Анастасия",
+                        "middle_name": "Алексеевна",
+                        "birth_date": "06.05.2009",
+                        "snils": "17950068495",
+                        "address": "г. Москва, Калашный переулок, д. 2/10, кв. 3",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79262861919",
+                        "last_name": "Лихорадова",
+                        "first_name": "Агата",
+                        "middle_name": "Максимовна",
+                        "birth_date": "11.11.2011",
+                        "snils": "20483283854",
+                        "address": "г. Москва, улица Пудовкина, д. 6, к. 2, кв. 87",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79151142507",
+                        "last_name": "Малашенков",
+                        "first_name": "Никита",
+                        "middle_name": "Вадимович",
+                        "birth_date": "09.05.2011",
+                        "snils": "18628313087",
+                        "address": "г. Москва, Россошанская улица, д. 5, к. 1, кв. 69",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79099372722",
+                        "last_name": "Малкина",
+                        "first_name": "Ангелина",
+                        "middle_name": "Сергеевна",
+                        "birth_date": "27.04.2010",
+                        "snils": "17966898875",
+                        "address": "г. Москва, Бибиревская улица, д. 11, кв. 114",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79163723797",
+                        "last_name": "Малявина",
+                        "first_name": "Полина",
+                        "middle_name": "Алексеевна",
+                        "birth_date": "24.09.2009",
+                        "snils": "18017436858",
+                        "address": "г. Москва, улица Исаковского, д. 24, к. 1, кв. 356",
+                        "email": "regine@bk.ru"
+                    },
+                    {
+                        "phone": "79265792542",
+                        "last_name": "Маматова",
+                        "first_name": "Василиса",
+                        "middle_name": "Игоревна",
+                        "birth_date": "18.09.2012",
+                        "snils": "17448378913",
+                        "address": "г. Москва, город Зеленоград, д. 449, кв. 71",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79651630009",
+                        "last_name": "Мамонов",
+                        "first_name": "Дмитрий",
+                        "middle_name": "Васильевич",
+                        "birth_date": "27.04.2011",
+                        "snils": "18606075075",
+                        "address": "г. Москва, Осенний бульвар, д. 7, к. 2, кв. 5",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79260720024",
+                        "last_name": "Мартынов",
+                        "first_name": "Тимофей",
+                        "middle_name": "Николаевич",
+                        "birth_date": "01.05.2010",
+                        "snils": "17303321222",
+                        "address": "г. Москва, улица Врубеля, д. 8, кв. 246",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79060865182",
+                        "last_name": "Матвеев",
+                        "first_name": "Никифор",
+                        "middle_name": "Михайлович",
+                        "birth_date": "10.01.2013",
+                        "snils": "19203303027",
+                        "address": "г. Москва, Осташковская улица, д. 21, кв. 169",
+                        "email": "katya071@gmail.com"
+                    },
+                    {
+                        "phone": "79081245507",
+                        "last_name": "Михайлова",
+                        "first_name": "Снежана",
+                        "middle_name": "Юрьевна",
+                        "birth_date": "07.05.2010",
+                        "snils": "16781032475",
+                        "address": "г. Москва, Шелепихинское шоссе, д. 11, к. 2, кв. 34",
+                        "email": "mihailova19900126@gmail.com"
+                    },
+                    {
+                        "phone": "79031532528",
+                        "last_name": "Михеева",
+                        "first_name": "Милана",
+                        "middle_name": "Максимовна",
+                        "birth_date": "20.03.2009",
+                        "snils": "18448435705",
+                        "address": "г. Москва, Краснополянская улица, д. 6, к. 1, кв. 158",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79250408333",
+                        "last_name": "Молоснов",
+                        "first_name": "Илья",
+                        "middle_name": "Дмитриевич",
+                        "birth_date": "29.11.2010",
+                        "snils": "18043650555",
+                        "address": "г. Москва, улица Маршала Катукова, д. 25, к. 1, кв. 374",
+                        "email": "peplova@mail.ru"
+                    },
+                    {
+                        "phone": "79647176650",
+                        "last_name": "Мордасов",
+                        "first_name": "Никита",
+                        "middle_name": "Александрович",
+                        "birth_date": "15.07.2010",
+                        "snils": "21763355971",
+                        "address": "г. Москва, улица Мещерякова, д. 4, к. 2, кв. 25",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79895121273",
+                        "last_name": "Носова",
+                        "first_name": "Арина",
+                        "middle_name": "Константиновна",
+                        "birth_date": "05.10.2009",
+                        "snils": "17132866970",
+                        "address": "г. Москва, улица Удальцова, д. 39, кв. 35",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79647740394",
+                        "last_name": "Орешникова",
+                        "first_name": "Вероника",
+                        "middle_name": "Сергеевна",
+                        "birth_date": "01.06.2009",
+                        "snils": "16526220249",
+                        "address": "г. Москва, улица Бестужевых, д. 8А, кв. 57",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79260332298",
+                        "last_name": "Осипова",
+                        "first_name": "Дарья",
+                        "middle_name": "Алексеевна",
+                        "birth_date": "30.09.2010",
+                        "snils": "17697074629",
+                        "address": "г. Москва, Новочеремушкинская улица, д. 52, к. 2, кв. 208",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79264077761",
+                        "last_name": "Палынкина",
+                        "first_name": "Диана",
+                        "middle_name": "Александровна",
+                        "birth_date": "16.07.2010",
+                        "snils": "18645128998",
+                        "address": "г. Москва, улица Бестужевых, д. 7в, кв. 124",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79161030841",
+                        "last_name": "Парфирьева",
+                        "first_name": "Мария",
+                        "middle_name": "Вадимовна",
+                        "birth_date": "14.05.2011",
+                        "snils": "19924852025",
+                        "address": "г. Москва, Большой Кондратьевский переулок, д. 4, стр. 1, кв. 9",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79169721879",
+                        "last_name": "Паршина",
+                        "first_name": "Екатерина",
+                        "middle_name": "Дмитриевна",
+                        "birth_date": "01.07.2010",
+                        "snils": "18480773911",
+                        "address": "г. Москва, улица Пырьева, д. 4, к. 3, кв. 55",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79261263233",
+                        "last_name": "Пименова",
+                        "first_name": "Арина",
+                        "middle_name": "Александровна",
+                        "birth_date": "19.05.2010",
+                        "snils": "17367298208",
+                        "address": "г. Москва, улица Маршала Савицкого, д. 16, кв. 163",
+                        "email": "pimalex1978@yandex.ru"
+                    },
+                    {
+                        "phone": "79167358617",
+                        "last_name": "Пинхасова",
+                        "first_name": "Бэлла",
+                        "middle_name": "Изроевна",
+                        "birth_date": "11.08.2010",
+                        "snils": "18474663716",
+                        "address": "г. Москва, Борисовская улица, д. 1, кв. 171",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79099746670",
+                        "last_name": "Плотко",
+                        "first_name": "Виктор",
+                        "middle_name": "Сергеевич",
+                        "birth_date": "15.01.2013",
+                        "snils": "18249795928",
+                        "address": "г. Москва, 3-я Радиаторская улица, д. 8, кв. 69",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79152692786",
+                        "last_name": "Поляков",
+                        "first_name": "Матвей",
+                        "middle_name": "Александрович",
+                        "birth_date": "06.03.2012",
+                        "snils": "18055816478",
+                        "address": "г. Москва, Строгинский бульвар, д. 26, к. 2, кв. 468",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79689290300",
+                        "last_name": "Полякова",
+                        "first_name": "Анастасия",
+                        "middle_name": "Ильинична",
+                        "birth_date": "09.08.2012",
+                        "snils": "18677134314",
+                        "address": "г. Москва, улица Винокурова, д. 11, к. 2, кв. 17",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79056037405",
+                        "last_name": "Пузенко",
+                        "first_name": "Владислав",
+                        "middle_name": "Русланович",
+                        "birth_date": "08.06.2010",
+                        "snils": "16582078187",
+                        "address": "г. Москва, Башиловская улица, д. 21, кв. 182",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79661956853",
+                        "last_name": "Рамазанов",
+                        "first_name": "Курбан",
+                        "middle_name": "Сакитович",
+                        "birth_date": "15.11.2010",
+                        "snils": "",
+                        "address": "г. Москва, улица Академика Ильюшина, д. 16, кв. 34",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79056208509",
+                        "last_name": "Ровнов",
+                        "first_name": "Денис",
+                        "middle_name": "Владимирович",
+                        "birth_date": "15.11.2009",
+                        "snils": "18385473715",
+                        "address": "г. Москва, улица Маршала Савицкого, д. 28, к. 1, кв. 40",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79686083856",
+                        "last_name": "Руфанов",
+                        "first_name": "Андрей",
+                        "middle_name": "Дмитриевич",
+                        "birth_date": "05.06.2011",
+                        "snils": "18542157074",
+                        "address": "г. Москва, город Зеленоград, к. 1535, кв. 55",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79254459695",
+                        "last_name": "Рябцева",
+                        "first_name": "Алиса",
+                        "middle_name": "Александровна",
+                        "birth_date": "03.03.2009",
+                        "snils": "17787416228",
+                        "address": "г. Москва, Каргопольская улица, д. 13, к. 1, кв. 114",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79636436143",
+                        "last_name": "Савенкова",
+                        "first_name": "Мария",
+                        "middle_name": "Ивановна",
+                        "birth_date": "20.09.2012",
+                        "snils": "17434054154",
+                        "address": "г. Москва, Бескудниковский бульвар, д. 5, кв. 103",
+                        "email": "kate.90@bk.ru"
+                    },
+                    {
+                        "phone": "79167852155",
+                        "last_name": "Саврасов",
+                        "first_name": "Кирилл",
+                        "middle_name": "Антонович",
+                        "birth_date": "01.08.2010",
+                        "snils": "16609545287",
+                        "address": "г. Москва, внутригородская территория поселение Сосенское, Скандинавский бульвар, д. 7",
+                        "email": "mari-var@mail.ru"
+                    },
+                    {
+                        "phone": "79263933335",
+                        "last_name": "Сазбандян",
+                        "first_name": "Марианна",
+                        "middle_name": "Владимировна",
+                        "birth_date": "18.08.2010",
+                        "snils": "16841902182",
+                        "address": "г. Москва, улица Зорге, д. 14, к. 3, кв. 209",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79032911802",
+                        "last_name": "Самхарадзе",
+                        "first_name": "Варвара",
+                        "middle_name": "Кобаевна",
+                        "birth_date": "11.04.2009",
+                        "snils": "19143584179",
+                        "address": "г. Москва, улица Земляной Вал, д. 24/32, кв. 172",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79167022886",
+                        "last_name": "Скляренко",
+                        "first_name": "Николай",
+                        "middle_name": "Максимович",
+                        "birth_date": "21.12.2009",
+                        "snils": "18052692572",
+                        "address": "г. Москва, Осенний бульвар, д. 3, кв. 56",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79252876618",
+                        "last_name": "Скорняков",
+                        "first_name": "Артём",
+                        "middle_name": "Алексеевич",
+                        "birth_date": "14.07.2012",
+                        "snils": "18861477827",
+                        "address": "г. Москва, Изумрудная улица, д. 52, кв. 81",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79261835686",
+                        "last_name": "Смирнов",
+                        "first_name": "Денис",
+                        "middle_name": "Александрович",
+                        "birth_date": "21.11.2012",
+                        "snils": "19578871556",
+                        "address": "г. Москва, 9-я улица Соколиной Горы, д. 21, кв. 68",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79800401084",
+                        "last_name": "Смирнова",
+                        "first_name": "Евгения",
+                        "middle_name": "Александровна",
+                        "birth_date": "01.08.2012",
+                        "snils": "18038197075",
+                        "address": "г. Москва, Сахалинская улица, д. 11, кв. 82",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79099826118",
+                        "last_name": "Смирнова",
+                        "first_name": "Наталья",
+                        "middle_name": "Александровна",
+                        "birth_date": "13.08.2009",
+                        "snils": "18075652991",
+                        "address": "г. Москва, улица Яблочкова, д. 29Б, кв. 49",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79031945700",
+                        "last_name": "Станкевичус",
+                        "first_name": "Егор",
+                        "middle_name": "Иванович",
+                        "birth_date": "23.08.2011",
+                        "snils": "18529630804",
+                        "address": "г. Москва, Дорожная улица, д. 23, к. 2, кв. 142",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79031829148",
+                        "last_name": "Сутырина",
+                        "first_name": "Диана",
+                        "middle_name": "Павловна",
+                        "birth_date": "29.01.2010",
+                        "snils": "17047550159",
+                        "address": "г. Москва, Рублевское шоссе, д. 91, к. 2, кв. 172",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79852578008",
+                        "last_name": "Суханова",
+                        "first_name": "Таисия",
+                        "middle_name": "Денисовна",
+                        "birth_date": "14.06.2010",
+                        "snils": "17632669700",
+                        "address": "г. Москва, Волгоградский проспект, д. 32/3, к. 3, кв. 306",
+                        "email": "vikashka@me.com"
+                    },
+                    {
+                        "phone": "79172051359",
+                        "last_name": "Сущихина",
+                        "first_name": "Настасья",
+                        "middle_name": "Филипповна",
+                        "birth_date": "18.11.2009",
+                        "snils": "19023262138",
+                        "address": "г. Москва, улица Цюрупы, д. 8, кв. 469",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79175025093",
+                        "last_name": "Таранов",
+                        "first_name": "Роман",
+                        "middle_name": "Валерьевич",
+                        "birth_date": "01.08.2011",
+                        "snils": "18710815678",
+                        "address": "г. Москва, улица Крутицкий Вал, д. 3, кв. 148",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79778497315",
+                        "last_name": "Титова",
+                        "first_name": "Софья",
+                        "middle_name": "Александровна",
+                        "birth_date": "27.04.2009",
+                        "snils": "18726690013",
+                        "address": "г. Москва, Чечерский проезд, д. 88, кв. 197",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79037307800",
+                        "last_name": "Туманов",
+                        "first_name": "Алексей",
+                        "middle_name": "Алексеевич",
+                        "birth_date": "05.10.2010",
+                        "snils": "17338154373",
+                        "address": "г. Москва, Алма-Атинская улица, д. 5, кв. 269",
+                        "email": "Olia.volk2012@yandex.ru"
+                    },
+                    {
+                        "phone": "79774997225",
+                        "last_name": "Улыбышев",
+                        "first_name": "Дмитрий",
+                        "middle_name": "Алексеевич",
+                        "birth_date": "18.07.2010",
+                        "snils": "",
+                        "address": "г. Москва, улица Малышева, д. 3, к. 2, кв. 8",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79168081333",
+                        "last_name": "Форштретер",
+                        "first_name": "Тим",
+                        "middle_name": "Дмитриевич",
+                        "birth_date": "17.01.2012",
+                        "snils": "20349382451",
+                        "address": "г. Москва, Скатертный переулок, д. 30, стр. 1, кв. 3",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79261236551",
+                        "last_name": "Хатунцев",
+                        "first_name": "Роман",
+                        "middle_name": "Петрович",
+                        "birth_date": "02.06.2011",
+                        "snils": "18637335199",
+                        "address": "г. Москва, Варшавское шоссе, д. 94, кв. 31",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79163027711",
+                        "last_name": "Холявко",
+                        "first_name": "Валерия",
+                        "middle_name": "Александровна",
+                        "birth_date": "04.03.2009",
+                        "snils": "15707256471",
+                        "address": "г. Москва, внутригородская территория поселение Сосенское, деревня Столбово, улица Суходолье, д. 21, кв. 1",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79165285894",
+                        "last_name": "Цуканов",
+                        "first_name": "Глеб",
+                        "middle_name": "Станиславович",
+                        "birth_date": "16.05.2009",
+                        "snils": "18500467358",
+                        "address": "г. Москва, улица Гончарова, д. 11, кв. 38",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79265224636",
+                        "last_name": "Ченцова",
+                        "first_name": "Анастасия",
+                        "middle_name": "Александровна",
+                        "birth_date": "20.04.2011",
+                        "snils": "18413685382",
+                        "address": "г. Москва, Чечерский проезд, д. 14, к. 4, кв. 74",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79096766789",
+                        "last_name": "Шабанов",
+                        "first_name": "Константин",
+                        "middle_name": "Павлович",
+                        "birth_date": "01.06.2012",
+                        "snils": "17329663191",
+                        "address": "г. Москва, Алтуфьевское шоссе, д. 58А, кв. 262",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79265237797",
+                        "last_name": "Шевченко",
+                        "first_name": "Анастасия",
+                        "middle_name": "Тарасовна",
+                        "birth_date": "14.06.2012",
+                        "snils": "17352181459",
+                        "address": "г. Москва, Луговой проезд, д. 3, кв. 321",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79651598386",
+                        "last_name": "Шевченко",
+                        "first_name": "Алиса",
+                        "middle_name": "Михайловна",
+                        "birth_date": "30.06.2011",
+                        "snils": "18595883956",
+                        "address": "г. Москва, Братиславская улица, д. 34, к. 2, кв. 119",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79172738955",
+                        "last_name": "Шепелева",
+                        "first_name": "Елизавета",
+                        "middle_name": "Владимировна",
+                        "birth_date": "02.09.2011",
+                        "snils": "16810917172",
+                        "address": "г. Москва, внутригородская территория поселение Сосенское, поселок Газопровод, д. 10, кв. 6",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79033608398",
+                        "last_name": "Шестовский",
+                        "first_name": "Степан",
+                        "middle_name": "Владимирович",
+                        "birth_date": "03.12.2009",
+                        "snils": "17924779631",
+                        "address": "г. Москва, Новочеркасский бульвар, д. 46, кв. 537",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79261164745",
+                        "last_name": "Шиляева",
+                        "first_name": "Ксения",
+                        "middle_name": "Алексеевна",
+                        "birth_date": "08.08.2010",
+                        "snils": "18083089986",
+                        "address": "г. Москва, Веневская улица, д. 1, кв. 265",
+                        "email": "tata5808@mali.ru"
+                    },
+                    {
+                        "phone": "79104845058",
+                        "last_name": "Якубова",
+                        "first_name": "Сафия",
+                        "middle_name": "Мурадовна",
+                        "birth_date": "13.04.2012",
+                        "snils": "17214480347",
+                        "address": "г. Москва, улица Кашенкин Луг, д. 8, к. 3, кв. 264",
+                        "email": ""
+                    },
+                    {
+                        "phone": "79852371201",
+                        "last_name": "Якунин",
+                        "first_name": "Александр",
+                        "middle_name": "Константинович",
+                        "birth_date": "18.01.2012",
+                        "snils": "18730439284",
+                        "address": "г. Москва, улица Достоевского, д. 3, кв. 53",
+                        "email": ""
+                    }
+                ];
+
+                // Считываем сохраненный индекс или начинаем с первого клиента
+                let currentIndex = localStorage.getItem('currentIndex');
+                if (currentIndex === null) {
+                    currentIndex = 0;
+                } else {
+                    currentIndex = parseInt(currentIndex);
+                }
+
+                // Функция для отображения информации о клиенте
+                function showClient(index) {
+                    const client = clients[index];
+                    document.getElementById('last_name').textContent = client.last_name;
+                    document.getElementById('first_name').textContent = client.first_name;
+                    document.getElementById('middle_name').textContent = client.middle_name;
+                    document.getElementById('birth_date').textContent = client.birth_date;
+                    document.getElementById('phone').textContent = client.phone;
+                    document.getElementById('snils').textContent = client.snils;
+                    document.getElementById('email').textContent = client.email;
+                    document.getElementById('role').textContent = client.role;
+                    document.getElementById('country').textContent = client.country;
+                    document.getElementById('region').textContent = client.region;
+                    document.getElementById('school').textContent = client.school;
+                    document.getElementById('address').textContent = client.address;
+                    document.getElementById('operator').textContent = client.operator;
+                    document.getElementById('location').textContent = client.location;
+                    document.getElementById('timezone').textContent = client.timezone;
+                    document.getElementById('score').textContent = client.score;
+                }
+
+                // Функция для копирования номера телефона
+                function copyPhoneNumber() {
+                    const phoneNumber = document.getElementById('phone').textContent;
+                    if (navigator.clipboard) {
+                        navigator.clipboard.writeText(phoneNumber).then(function () {
+                            alert('Номер телефона скопирован в буфер обмена');
+                        }).catch(function (err) {
+                            console.error('Ошибка при копировании:', err);
+                        });
+                    } else {
+                        const textarea = document.createElement('textarea');
+                        textarea.value = phoneNumber;
+                        document.body.appendChild(textarea);
+                        textarea.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(textarea);
+                        alert('Номер телефона скопирован в буфер обмена');
+                    }
+                }
+
+                // Показываем первого клиента
+                showClient(currentIndex);
+
+                // Обработчик клика по номеру телефона
+                document.getElementById('phone').addEventListener('click', copyPhoneNumber);
+
+                // Функция обновления видимости кнопок
+                function updateButtons() {
+                    document.getElementById('prevButton').style.display = currentIndex === 0 ? 'none' : 'inline-block';
+                    document.getElementById('nextButton').style.display = currentIndex === clients.length - 1 ? 'none' : 'inline-block';
+                }
+
+                // Переход к следующему клиенту
+                function nextClient() {
+                    if (currentIndex < clients.length - 1) {
+                        currentIndex++;
+                        localStorage.setItem('currentIndex', currentIndex);
+                        showClient(currentIndex);
+                        updateButtons();
+                    }
+                }
+
+                // Переход к предыдущему клиенту
+                function prevClient() {
+                    if (currentIndex > 0) {
+                        currentIndex--;
+                        localStorage.setItem('currentIndex', currentIndex);
+                        showClient(currentIndex);
+                        updateButtons();
+                    }
+                }
+
+                // Инициализация
+                updateButtons();
+
+                // Обработчики кнопок
+                document.getElementById('nextButton').addEventListener('click', nextClient);
+                document.getElementById('prevButton').addEventListener('click', prevClient);
+            </script>
+</body>
+
+</html>
